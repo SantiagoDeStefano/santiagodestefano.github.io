@@ -77,6 +77,7 @@ def attention(Q, K, V, mask=None):
     # Thus, better gradient.
     # Ex: softmax([15, 2, 1]) == [0.999, 0.0007, 0.0003]
     # Key point: every elements of Q and K interact with each other
+    # I really recommended to watch: Matrix multiplication as composition | Chapter 4, Essence of linear algebra - 3Blue1Brown
     scores = Q @ K.swapaxes(-2, -1) / np.sqrt(d_k)  # (seq, seq)
 
     # Causal attention
@@ -127,22 +128,25 @@ class MultiHeadAttention:
         return self.Wo.forward(concat)
 
 
-# ─────────────────────────────────────────
-# 6. FEED-FORWARD LAYER
-# ─────────────────────────────────────────
+# 6. Feed-forward layer
 # Two linear layers with ReLU: FFN(x) = ReLU(xW1 + b1)W2 + b2
 class FeedForward:
     def __init__(self, d_model, d_ff):
+        # Reminder: 
+        # d_model: information each token carries (input/output)
+        # d_ff: workspace to transform that information (internal only)
+        # Key point: d_model (768) -> expand to d_ff (3072) -> contract back to d_model (768)
         self.l1 = Linear(d_model, d_ff)
         self.l2 = Linear(d_ff, d_model)
 
     def forward(self, x):
+        # 1. Apply first linear layer (d_model to d_ff)
+        # 2. Apply ReLU
+        # 3. Apply second linear layer (d_ff back to d_model)
         return self.l2.forward(np.maximum(0, self.l1.forward(x)))  # ReLU
 
 
-# ─────────────────────────────────────────
-# 7. LAYER NORM
-# ─────────────────────────────────────────
+# 7. Layer norm
 class LayerNorm:
     def __init__(self, d_model, eps=1e-6):
         self.gamma = np.ones(d_model)
@@ -152,12 +156,11 @@ class LayerNorm:
     def forward(self, x):
         mean = x.mean(axis=-1, keepdims=True)
         std  = x.std(axis=-1,  keepdims=True)
+        # Adding beta and gamma to
+        # learn the optimal scale and shift for each feature after normalization
         return self.gamma * (x - mean) / (std + self.eps) + self.beta
 
-
-# ─────────────────────────────────────────
-# 8. TRANSFORMER ENCODER BLOCK
-# ─────────────────────────────────────────
+# 8. Transformer encode block
 class EncoderBlock:
     def __init__(self, d_model, num_heads, d_ff):
         self.attn  = MultiHeadAttention(d_model, num_heads)
@@ -165,7 +168,12 @@ class EncoderBlock:
         self.norm1 = LayerNorm(d_model)
         self.norm2 = LayerNorm(d_model)
 
-    def forward(self, x, mask=None):
+    def forward(self  , x, mask=None):
+        # Adding 'x' before each layer to keep the old 'x' weight
+        # of the before layer or else, after 12 layers, the original information 
+        # from embedding is gone. Leading to gradients vanishing during training. Thus, model can't learn. 
+        # Fun fact: This was actually a huge breakthrough in deep learning (ResNet, 2015),
+        # before this, training networks deeper than ~10 layers was nearly impossible.
         # Sub-layer 1: Multi-Head Attention + residual
         x = self.norm1.forward(x + self.attn.forward(x, mask))
         # Sub-layer 2: Feed-Forward + residual
@@ -173,9 +181,7 @@ class EncoderBlock:
         return x
 
 
-# ─────────────────────────────────────────
-# 9. FULL TRANSFORMER (Encoder only)
-# ─────────────────────────────────────────
+# 9. Full transformer (Encoder only)
 class Transformer:
     def __init__(self, vocab_size, d_model=32, num_heads=4, d_ff=64, num_layers=2):
         self.embed  = Embedding(vocab_size, d_model)
@@ -191,9 +197,7 @@ class Transformer:
         return x   # (seq_len, d_model)
 
 
-# ─────────────────────────────────────────
-# DEMO
-# ─────────────────────────────────────────
+# Demo
 if __name__ == "__main__":
     np.random.seed(42)
 
