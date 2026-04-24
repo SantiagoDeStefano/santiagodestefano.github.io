@@ -1,9 +1,6 @@
 import numpy as np
 
-# ─────────────────────────────────────────────────────────────
-# UTILS
-# ─────────────────────────────────────────────────────────────
-
+# Utils
 # 4. Scaled dot-product attention
 # Attention(Q, K, V) = softmax(QK^T / sqrt(d_k)) V
 def softmax(x, axis=-1):
@@ -12,9 +9,21 @@ def softmax(x, axis=-1):
     return e / e.sum(axis=axis, keepdims=True)
 
 def softmax_backward(dout, out):
-    # dout: gradient flowing in (seq, seq)
-    # out:  softmax output (seq, seq)
+    # Example: softmax = [0.05, 0.95] while true label: positive (index = 0)
+    # Which would cause a high loss, the gradient should answer:
+    # scores[0] should increase, while scores[1] should decrease;
+    # So softmax return something like: dscores = [−0.95, +0.95]
+    # Meaning 
+    # score[0] += 0.95: push up
+    # score[1] -= 0.95: push down
+    
+    # dout: gradient flowing in (seq, seq) (from cross-entropy loss)
+    # out:  softmax output (seq, seq) 
     # For each row: dL/dx_i = out_i * (dout_i - sum(dout * out))
+
+    # Example: 
+    # out = [0.05, 0.95]
+    # dout = [-1.0, 0.0]
     s = np.sum(dout * out, axis=-1, keepdims=True)
     return out * (dout - s)
 
