@@ -193,6 +193,23 @@ Z.grad = np.zeros_like(Z.data)
 y_pred.grad = np.zeros_like(y_pred.data)
 ```
 
+## Maps to Real Frameworks - Personal cheatsheet
+
+| Numpy (ours)                          | PyTorch                                    | TensorFlow                                      |
+| ------------------------------------- | ------------------------------------------ | ----------------------------------------------- |
+| `W = Value(np.random.randn(...))`     | `W = torch.randn(..., requires_grad=True)` | `W = tf.Variable(tf.random.normal(...))`        |
+| `b = Value(np.zeros(...))`            | `b = torch.zeros(..., requires_grad=True)` | `b = tf.Variable(tf.zeros(...))`                |
+| `W.grad = np.zeros_like(W.data)`      | `optimizer.zero_grad()`                    | (automatic)                                     |
+| `Z = matmul_forward(X, W)`            | `Z = X @ W`                                | `Z = X @ W` (inside `tape`)                     |
+| `y_pred = add_forward(Z, b)`          | `y_pred = Z + b`                           | `y_pred = Z + b`                                |
+| `loss, diff = mse_forward(y_pred, y)` | `loss = F.mse_loss(y_pred, y)`             | `loss = tf.reduce_mean((y_pred - y)**2)`        |
+| `y_pred.grad = mse_backward(...)`     | `loss.backward()`                          | `grads = tape.gradient(loss, [W, b])`           |
+| `add_backward(...)`                   | (included above)                           | (included above)                                |
+| `matmul_backward(...)`                | (included above)                           | (included above)                                |
+| `W.data -= lr * W.grad`               | `optimizer.step()`                         | `optimizer.apply_gradients(zip(grads, [W, b]))` |
+
+The big takeaway: all three backward steps we wrote manually are just one call in both frameworks. That's what autograd does - it records the forward graph and walks it backward for you automatically.
+
 ## What's Next
 
 Logistic Regression.
