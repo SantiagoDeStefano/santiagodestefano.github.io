@@ -195,7 +195,7 @@ y_pred.grad = np.zeros_like(y_pred.data)
 
 ## Maps to Real Frameworks - Personal cheatsheet
 
-| Numpy (ours)                          | PyTorch                                    | TensorFlow                                      |
+| Numpy                         | PyTorch                                    | TensorFlow                                      |
 | ------------------------------------- | ------------------------------------------ | ----------------------------------------------- |
 | `W = Value(np.random.randn(...))`     | `W = torch.randn(..., requires_grad=True)` | `W = tf.Variable(tf.random.normal(...))`        |
 | `b = Value(np.zeros(...))`            | `b = torch.zeros(..., requires_grad=True)` | `b = tf.Variable(tf.zeros(...))`                |
