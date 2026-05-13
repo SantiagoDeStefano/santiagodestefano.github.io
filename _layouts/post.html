@@ -1,0 +1,15 @@
+---
+layout: default
+---
+<script>
+MathJax = {
+  tex: { displayMath: [['\\[', '\\]']], inlineMath: [['$', '$']] }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+
+<article>
+  <h1>{{ page.title }}</h1>
+  <p>{{ page.date | date: "%B %d, %Y" }}</p>
+  {{ content }}
+</article>
