@@ -249,8 +249,8 @@ b.data -= lr * b.grad
 
 ## Visualization
 
-![Decision Boundary](/ml-dl-from-scratch/assets/images/decision_boundary.jpg)
-![Sigmoid Surface](/ml-dl-from-scratch/assets/images/sigmoid_surface.jpg)
+![Decision Boundary](/assets/images/decision_boundary.jpg)
+![Sigmoid Surface](/assets/images/sigmoid_surface.jpg)
 
 ## Mistakes I Made
 
