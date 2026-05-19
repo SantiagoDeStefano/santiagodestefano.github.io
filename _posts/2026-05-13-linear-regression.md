@@ -1,6 +1,7 @@
 ---
 title: "Linear Regression from Scratch with Backpropagation"
 date: 2026-05-13
+categories: [ml-dl]
 ---
 
 # Linear Regression from Scratch with Backpropagation
