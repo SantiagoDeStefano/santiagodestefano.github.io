@@ -248,9 +248,8 @@ b.data -= lr * b.grad
 
 ## Visualization
 
-![Decision Boundary](/ml-dl-from-scratch/assets/images/decision_boundary.png)
-
-![3D Sigmoid Surface](/ml-dl-from-scratch/assets/images/sigmoid_surface.png)
+![Decision Boundary](/ml-dl-from-scratch/assets/images/decision_boundary.jpg)
+![Sigmoid Surface](/ml-dl-from-scratch/assets/images/sigmoid_surface.jpg)
 
 ## Mistakes I Made
 
@@ -300,9 +299,9 @@ def matmul_backward(X: Value, W: Value, dout: np.ndarray):
     W.grad += X.data.T @ dout
 ```
 
-## How This Maps to Real Frameworks
+## Maps to Real Frameworks - Personal cheatsheet
 
-| Numpy (ours)                  | PyTorch                             | TensorFlow                             |
+| Numpy                         | PyTorch                             | TensorFlow                             |
 | ----------------------------- | ----------------------------------- | -------------------------------------- |
 | `sigmoid_forward(A)`          | `torch.sigmoid(A)`                  | `tf.sigmoid(A)`                        |
 | `bce_forward(y_pred, y)`      | `F.binary_cross_entropy(y_pred, y)` | `tf.keras.losses.BinaryCrossentropy()` |
@@ -311,4 +310,4 @@ def matmul_backward(X: Value, W: Value, dout: np.ndarray):
 
 ## What's Next
 
-Neural networks - same pattern, more layers, with ReLU activation between them.
+Decision Tree.
