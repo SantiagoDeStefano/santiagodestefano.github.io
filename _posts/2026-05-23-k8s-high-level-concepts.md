@@ -7,7 +7,7 @@ categories: [k8s]
 # Motivation of using K8s
 
 ![Motivation 1](/assets/images/k8s_motivation_1.jpg)
-![Motivation 2](/assets/images/k8s_motivation_2.jpg)
+![Motivation 2](/assets/images/k8s_motivation_2.png)
 
 # High Level Architecture
 
