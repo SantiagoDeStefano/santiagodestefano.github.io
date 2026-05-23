@@ -160,7 +160,9 @@ spec:
 ## Service:
 
 `Service` is an object in K8s that provides a way to connect and communicate between `Pods` , or between `Pods` and outside world.
-![[Pasted image 20260522015355.png]]
+
+![Service](/assets/images/k8s_service_object.png)
+
 The `Deployment` ensures `Pods` are running, while the `Service` forwards incoming requests to available `Pods`, even if `Pod` IPs change.
 
 Note that `Service` is different from `CNI`;
@@ -176,7 +178,7 @@ Service:
 
 ## Service Type
 
-![[Pasted image 20260522015716.png]]
+![Service Type](/assets/images/k8s_service_type.png)
 
 | Feature       | ClusterIP                                                                | NodePort                                               | LoadBalancer                      |
 | ------------- | ------------------------------------------------------------------------ | ------------------------------------------------------ | --------------------------------- |
