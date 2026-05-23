@@ -1,5 +1,5 @@
 ---
-title: "K8s high level concepts"
+title: "K8s basic objects"
 date: 2026-05-23
 categories: [k8s]
 ---
