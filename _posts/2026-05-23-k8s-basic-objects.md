@@ -122,7 +122,7 @@ template creates: app=nginx
 
 ## Deployment
 
-![[Pasted image 20260521234232.png]]
+![Deployment](/assets/images/k8s_deployment.png)
 
 `my_deployment.yaml`:
 ```
@@ -151,11 +151,11 @@ spec:
 
 ## How a deployment is created?
 
-![[Pasted image 20260522015130.png]]
+![How a deployment is created](/assets/images/k8s_deployment_how_create.png)
 
 ## How a deployment is deleted?
 
-![[Pasted image 20260522015146.png]]
+![How a deployment is deleted](/assets/images/k8s_deployment_how_delete.png)
 
 ## Service:
 
