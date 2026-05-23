@@ -220,7 +220,7 @@ spec:
 
 `Namespaces` provide a mechanism for isolating groups of resources within a single cluster.
 
-![[Pasted image 20260522202458.png]]
+![Namespace object](/assets/images/k8s_namespace_object.png)    
 
 `Practical Applications`:
 - Separate development, testing, and production environment (`dev`, `qa`)
@@ -246,7 +246,7 @@ There are 5 types of `Volume` in `K8s`:
 - Secret
 ```
 
-![[Pasted image 20260522203104.png]]
+![Volume Object](/assets/images/k8s_volume_object.png)
 
 `Volume` in K8s is a **storage mechanism** that allows containers within a `Pod` to:
 - Share data between containers
@@ -284,7 +284,7 @@ spec:
 
 `Persistent Volume (PV)` is a **storage resource** in `K8s` that is managed by the cluster
 
-![[Pasted image 20260522205242.png]]
+![PV object](/assets/images/k8s_pv_object.png)
 
 Simple understanding: 
 `PV` is not a disk itself, `PV` is `K8s` saying: 
@@ -302,7 +302,7 @@ Pod  = person using the room
 
 `Persistent Volume Claim (PVC)` is a **user requested** to consume storage resources `(PV)`
 
-![[Pasted image 20260522210039.png]]
+![PVC object](/assets/images/k8s_pvc_object.png)
 
 Simple understanding:
 ```
@@ -379,7 +379,7 @@ The `PV` defines the actual storage resource (`1GB` with `ReadWriteOnce` mode), 
 
 `ConfigMap` is an object in `K8s` used to **store non-sensitive configuration data** in **key-value** pairs.
 
-![[Pasted image 20260523125257.png]]
+![ConfigMap object](/assets/images/k8s_configmap_object.png)
 
 ```
 apiVersion: v1
@@ -471,7 +471,7 @@ server {
 
 ## Secrets
 
-![[Pasted image 20260523132105.png]]
+![Secret object](/assets/images/k8s_secret_object.png)
 
 `Secret` is an object in `K8s` used to **store** and **manage sensitive information** (such as passwords, API tokens, or SSL certificates).
 
@@ -540,9 +540,9 @@ PVC
 ```
 ## Daemonset
 
-![[Pasted image 20260523135518.png]]
+![Daemonset object](/assets/images/k8s_daemonset_object.png)
 
-`DaemoSet` is an object in `K8s` that ensures a `Pod` runs on every `Node` in the cluster.
+`DaemonSet` is an object in `K8s` that ensures a `Pod` runs on every `Node` in the cluster.
 
 Common use case:
 ```
@@ -553,7 +553,7 @@ Common use case:
 
 ## Ingress
 
-![[Pasted image 20260523140727.png]]
+![Ingress object](/assets/images/k8s_ingress_object.png)
 
 `Ingress` in an object in `K8s` that is allowed to **manage HTTP and HTTPS traffic** to applications running inside the cluster.
 `Ingress` provides capabilities such as:
