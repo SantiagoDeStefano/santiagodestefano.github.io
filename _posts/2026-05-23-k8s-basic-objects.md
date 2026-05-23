@@ -185,6 +185,7 @@ Service:
 | Exposition    | Internal cluster                                                         | External                                               | External                          |
 | Accessibility | Default service type. Internal clients use a stable internal IP address. | Through a dedicated port `30000 - 32767` on all nodes. | Through a cloud load balancer IP. |
 | Use cases     | Internal communication                                                   | Testing public/private access for a short time.        | External production access.       |
+
 Note: Another Service type is `ExternalName`, used to create a `CNAME` DNS record. Read more about [DNS records](https://www.cloudflare.com/learning/dns/dns-records/dns-a-record/) and [Kubernetes ExternalName Service](https://adil.medium.com/kubernetes-service-externalname-6b4cfb7640a2).
 
 `my_service.yaml`
