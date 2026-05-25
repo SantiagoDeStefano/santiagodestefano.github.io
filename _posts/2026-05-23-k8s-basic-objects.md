@@ -88,24 +88,24 @@ Note: `ReplicaSet` is stored in `etcd`.
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
-	name: nginx-replicaset
-	labels:
-		app: nginx
+  name: nginx-replicaset
+  labels:
+    app: nginx
 spec:
-	replicas: 3
-	selector:
-		matchLabels:
-			app: nginx
-	template:
-		metadata:
-			labels:
-				app: nginx
-		spec:
-			containers:
-			- name: nginx
-			  image: nginx:latest
-			  ports:
-			  - containerPort: 80
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
 ```
 
 `metadata`: General information (name, labels, etc.)
