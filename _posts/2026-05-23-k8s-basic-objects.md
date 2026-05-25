@@ -129,24 +129,24 @@ template creates: app=nginx
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-	name: nginx-deployment
-	labels:
-		app: nginx
+  name: nginx-deployment
+  labels:
+    app: nginx
 spec:
-	replicas: 3
-	selector:
-		matchLabels:
-			app: nginx
-	template:
-		metadata:
-			labels:
-				app: nginx
-		spec:
-			containers:
-			- name: nginx
-			  image: nginx:latest
-			  ports:
-			  - containerPort: 80
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
 ```
 
 ## How a deployment is created?
@@ -193,15 +193,15 @@ Note: Another Service type is `ExternalName`, used to create a `CNAME` DNS recor
 apiVersion: v1
 kind: Service
 metadata:
-	name: nginx
+  name: nginx
 spec:
-	selector:
-		tier: frontend
-	ports:
-		- port: 3000
-		  protocol: TCP
-		  targetPort: 80
-	type: ClusterIP
+  selector:
+    tier: frontend
+  ports:
+  - port: 3000
+    protocol: TCP
+    targetPort: 80
+  type: ClusterIP
 ```
 
 `metadata`: Sets the service name to `nginx`
@@ -261,17 +261,17 @@ There are 5 types of `Volume` in `K8s`:
 apiVersion: v1
 kind: Pod
 metadata:
-	name: emptydir-example
+  name: emptydir-example
 spec:
-	containers:
-	- name: nginx
-	  image: nginx
-	  volumeMounts:
-	  - mountPath: "/data"
-	    name: temp-storage
-	volumes:
-	- name: temp-storage
-	  emptyDir: {}
+  containers:
+  - name: nginx
+    image: nginx
+    volumeMounts:
+    - mountPath: "/data"
+      name: temp-storage
+  volumes:
+  - name: temp-storage
+    emptyDir: {}
 ```
 
 `containers`: The container runs the `nginx` image
@@ -333,15 +333,15 @@ Actual flow:
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-	name: pv-example
+  name: pv-example
 spec:
-	capacity:
-		storage: 1Gi
-	accessModes:
-		- ReadWriteOnce
-	persistentVolumeReclaimPolicy: Retain
-	hostPath:
-		path: "/mnt/data"
+  capacity:
+    storage: 1Gi
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: "/mnt/data"
 ```
 
 `metadata:` Create a `PV` named `pv-example`
@@ -364,13 +364,13 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-	name: pvc-example
+  name: pvc-example
 spec:
-	accessModes:
-		- ReadWriteOnce
-	resources:
-		requests:
-			storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
 ```
 
 The `PV` defines the actual storage resource (`1GB` with `ReadWriteOnce` mode), and the `PVC` requests and binds to that storage for use by `Pods`.
@@ -385,18 +385,18 @@ The `PV` defines the actual storage resource (`1GB` with `ReadWriteOnce` mode), 
 apiVersion: v1
 kind: Pod
 metadata:
-	name: configmap-example
+  name: configmap-example
 spec:
-	containers:
-	- name: nginx
-	  image: nginx
-	  volumeMounts:
-	  - mountPath: "/etc/config"
-	    name: config-volume
-	volumes:
-	- name: config-volume
-	  configMap:
-		  name: my-configmap
+  containers:
+  - name: nginx
+    image: nginx
+    volumeMounts:
+    - mountPath: "/etc/config"
+      name: config-volume
+  volumes:
+  - name: config-volume
+    configMap:
+      name: my-configmap
 ```
 
 `-mountPath: "/etc/config"`: The path inside the container where the `ConfigMap` files will appear
@@ -501,18 +501,18 @@ Pod uses SA token to call API Server;
 apiVersion: v1
 kind: Pod
 metadata:
-	name: secret-example
+  name: secret-example
 spec:
-	containers:
-	- name: nginx
-	  image: nginx
-	  volumeMounts:
-	  - mountPath: "/etc/secret"
-	    name: secret-volume
-	volumes:
-	- name: secret-volume
-	  secret:
-	  secretName: my-secret
+  containers:
+  - name: nginx
+    image: nginx
+    volumeMounts:
+    - mountPath: "/etc/secret"
+      name: secret-volume
+  volumes:
+  - name: secret-volume
+    secret:
+      secretName: my-secret
 ```
 
 `mountPath: "/etc/secret"`: The path inside the container where the Secret files will appear.
@@ -578,24 +578,24 @@ Common use case:
 `Ingress - path based routing`
 ```
 spec:
-	rules:
-	- host: example
-	  http:
-		  paths:
-		  - path: /api
-		    pathType: Prefix
-		    backend:
-			    service:
-				    name: api-service
-				    port:
-					    number: 8080
-		  - path: /web
-		    pathType: Backend
-		    backend:
-			    service: api-service
-				    name: web-service
-				    port:
-					    number: 80
+  rules:
+  - host: example.com
+    http:
+      paths:
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: api-service
+            port:
+              number: 8080
+      - path: /web
+        pathType: Prefix
+        backend:
+          service:
+            name: web-service
+            port:
+              number: 80
 ```
 
 `- host: example`: Route only requests with this host.
@@ -607,27 +607,27 @@ spec:
 `Ingress - Host based Routing`
 ```
 spec:
-	rules:
-	- host: api.example.com
-	  http:
-		  paths:
-		  - path: /
-		    pathType: Prefix
-		    backend:
-			    service:
-				    name: api-service
-				    port:
-						number: 8080
-	- host: web.example.com
-	  http:
-		  paths:
-		  - path: /
-		    pathType: Prefix
-		    backend:
-			    service:
-				    name: api-service
-				    port:
-						number: 80
+  rules:
+  - host: api.example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: api-service
+            port:
+              number: 8080
+  - host: web.example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: api-service
+            port:
+              number: 80
 ```
 
 `- host: api.example.com`: Matches requests sent to `'api.example.com'` with `("/")` and routes them to the `'api-service Service'` on port 8080.
@@ -637,21 +637,21 @@ spec:
 `Ingress - TLS`:
 ```
 spec:
-	tls:
-	- hosts:
-	  - example.com
-	  secretName: tls-secret
-	rules:
-	- host: example.com
-	  http:
-		  paths:
-		  - path: /
-		    pathType: Prefix
-		    backend:
-			    service:
-				    name: my-service
-				    port:
-					    number: 80
+  tls:
+  - hosts:
+    - example.com
+    secretName: tls-secret
+  rules:
+  - host: example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: my-service
+            port:
+              number: 80
 ```
 
 `tls`: Sets up TLS for incoming requests to the host `"example.com"`
@@ -676,15 +676,15 @@ A `Job` in `K8s` is a **controller** that **runs a task once** until it finishes
 apiVersion: batch/v1
 kind: Job
 metadata:
-	name: example-job
+  name: example-job
 spec:
-	template:
-		spec:
-			containers:
-			- name: job-container
-			  image: busybox
-			  command: ["echo", "Hello from Job"]
-			restartPolicy: Never
+  template:
+    spec:
+      containers:
+      - name: job-container
+        image: busybox
+        command: ["echo", "Hello from Job"]
+      restartPolicy: Never
 ```
 
 `image: busybox`: `Container` image to run
@@ -707,18 +707,18 @@ A `CronJob` is like a `Job`, but in **runs on a schedule**. It creates a new `Jo
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-	name: example-cronjob
+  name: example-cronjob
 spec:
-	schedule: "0 * * * *"
-	jobTemplate:
-		spec:
-			template:
-				spec:
-					containers:
-						- name: cronjob-container
-						  image: busybox
-						  command: ["echo", "Hello every hour"]
-					restartPolicy: Never
+  schedule: "0 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: cronjob-container
+            image: busybox
+            command: ["echo", "Hello every hour"]
+          restartPolicy: Never
 ```
 
 `schedule: "0 * * * *"`: `Cron` schedule runs at every hour at minute 0
