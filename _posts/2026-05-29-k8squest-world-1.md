@@ -212,9 +212,12 @@ web-app   0/1     ImagePullBackOff   0          5m41s
 The `Pod` got stuck at phase 2. The `kubelet` on the node tried to pull the image, failed, waited a bit (backoff), and tried again. Thus, creating the `ImagePullBackOff` status.
 ## Image pull process:
 
+```
 `kubectl` apply → `Scheduler` assigns node → `kubelet` pulls image → Creates container → `Pod` runs
+                                       
                                        ^
 			                        Stuck here!
+```
 
 Check the exact image being used:
 ```
@@ -525,6 +528,7 @@ targetPort: 8080
 | Simple match |                80 |           80 | 80                 |
 | Port mapping |              8080 |           80 | 8080               |
 | Named port   | 8080 named `http` |           80 | `http`             |
+
 ## Real-World Incident Example:
 
 `Company`: `E-commerce` site during `Black Friday`
@@ -764,6 +768,7 @@ kubectl exec <pod> -c <container> -it -n <namespace> -- sh
 | Resource starvation | One container `OOMKilled` | Set proper resource requests/limits   |
 | Volume permissions  | `Permission denied`       | Fix volume mount permissions          |
 | Startup race        | Init failed               | Use init containers for dependencies  |
+
 # Level 8: `Pod Logs` Mystery:
 
 ## What Happened:
@@ -880,6 +885,7 @@ kubectl create service clusterip backend-service \
 | `--dry-run=client`                                 | Do not create yet                                    |
 | `-o yaml`                                          | Output as YAML                                       |
 | `> /tmp/fix.yaml`                                  | Save YAML into file                                  |
+
 # Level 10: `Namespace` Confusion
 ## What happened
 
