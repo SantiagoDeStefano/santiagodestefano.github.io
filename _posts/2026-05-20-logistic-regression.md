@@ -1,7 +1,7 @@
 ---
 title: "Logistic Regression from Scratch with Backpropagation"
 date: 2026-05-20
-categories: [ml-dl]
+categories: [cracking ml - linear models]
 ---
 
 # Logistic Regression from Scratch with Backpropagation
