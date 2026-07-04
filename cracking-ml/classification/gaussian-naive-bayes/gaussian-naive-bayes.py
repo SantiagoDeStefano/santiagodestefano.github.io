@@ -31,7 +31,7 @@ class GaussianNB:
 np.random.seed(42)
 X_train = np.random.randn(100, 2)
 y_train = np.where(X_train[:, 0] + X_train[:, 1] > 0, 1, 0)
-X_test = np.random.randn(20, 2)
+X_test = np.random.randn(800, 2)
 y_test = np.where(X_test[:, 0] + X_test[:, 1] > 0, 1, 0)
 
 model = GaussianNB()
