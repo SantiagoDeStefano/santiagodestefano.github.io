@@ -5,7 +5,7 @@ class AveragePerceptron:
         pass
 
     def fit(self, X: np.array, y: np.array):
-        # W should be (n_features, value)
+        # W should be (n_features, 1)
         self.W = np.zeros(X.shape[1])
         self.b = 0.0
 
