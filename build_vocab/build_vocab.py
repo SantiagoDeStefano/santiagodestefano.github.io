@@ -1,38 +1,17 @@
-import os, time
-from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, explode, udf, input_file_name, get_json_object
-from pyspark.sql.types import ArrayType, StringType
+import os
 
-BASE = "/mnt/e/redpajama-data"
-OUT = "/mnt/e/redpajama-chunks"
-CHUNK_SIZE = 2048
 
-spark = SparkSession.builder \
-    .appName("RedPajama Batch Chunker") \
-    .master("local[12]") \
-    .config("spark.driver.memory", "40g") \
-    .config("spark.local.dir", "mnt/f/spark-temp") \
-    .config("spark.ui.showConsoleProgress", "true") \
-    .getOrCreate()
+def print_tree(root, prefix="", depth=None, level=3):
+    if depth is not None and level >= depth:
+        return
+    entries = sorted(os.listdir(root))
+    for i, name in enumerate(entries):
+        path = os.path.join(root, name)
+        connector = "└── " if i == len(entries) - 1 else "├── "
+        print(prefix + connector + name)
+        if os.path.isdir(path):
+            extension = "    " if i == len(entries) - 1 else "│   "
+            print_tree(path, prefix + extension, depth, level + 1)
 
-spark.sparkContext.setLogLevel("WARN")
 
-def chunk_text(text):
-    if not text:
-        return []
-    chunks = []
-    for i in range(0, len(text), CHUNK_SIZE):
-        piece = text[i : i + CHUNK_SIZE].strip()
-        if piece:
-            chunks.append(piece)
-    return chunks
-
-chunk_udf = udf(chunk_text, ArrayType(StringType()))
-
-folders = {}
-for root, _, fnames in os.walk(BASE):
-    for f in fnames:
-        if f.endswith(".jsonl") or f.endswith(".json"):
-            subdir = os.path.relpath(root, BASE).split(os.sep)[0]
-            folders.setdefault(subdir, []).append(os.path.join(root, f))
-
+print_tree(r"D:\1_pytorch", depth=2)

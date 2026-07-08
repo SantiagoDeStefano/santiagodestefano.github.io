@@ -16,7 +16,7 @@ class AveragePerceptron:
                     # use true y value to steer the W
                     self.W = self.W + lr * yi * x
                     self.b = self.b + lr * yi
-                print(f"Epoch: {epoch} Distance from true y: {abs(correct - yi)}")
+                print(f"Epoch: {epoch} Distance from true y: {abs(correct - yi)}")        
 
     def predict(self, X_test: np.array):
         preds = []
