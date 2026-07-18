@@ -1,8 +1,8 @@
 import numpy as np
-from cracking_ml.classification.svm_with_hinge_loss.svm_with_hinge_loss import SVM
+from cracking_ml.classification.svm_with_hinge_loss import SVM
 
 def permutation_importance(
-        model, 
+        model: SVM, 
         X: np.array, 
         y: np.array,
         n_repeats = 10,
