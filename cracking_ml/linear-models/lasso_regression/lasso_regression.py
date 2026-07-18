@@ -11,6 +11,9 @@ class Value:
         self.grad = np.zeros_like(self.data)
         pass
 
+    def __rmul__(self, other):
+        return self * other
+
 
 def matmul_forward(X: Value, W: Value):
     """
@@ -54,7 +57,7 @@ def mse_lasso_forward(y_pred: Value, y_true: Value, W: Value, alpha: np.float64)
     return loss, diff
 
 
-def mse_lasso_backward(y_pred: Value, diff: Value, n: int, alpha: np.float64, W: Value):
+def mse_lasso_backward(y_pred: Value, diff: np.ndarray, n: int, alpha: np.float64, W: Value):
     """
     dL/dy_pred = (2/n) * (y_pred - y_true) \n
     dL/dW_data = alpha * sign(W)

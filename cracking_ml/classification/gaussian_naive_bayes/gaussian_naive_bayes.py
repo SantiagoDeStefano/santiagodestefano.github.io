@@ -4,7 +4,7 @@ class GaussianNB:
     def __init__(self):
         pass
 
-    def fit(self, X: np.array, y: np.array):
+    def fit(self, X: np.ndarray, y: np.ndarray):
         self.mean = {}
         self.std = {}
         self.priors = {}
@@ -15,7 +15,7 @@ class GaussianNB:
             self.std[c] = np.std(X_c, axis = 0)
             self.priors[c] = X_c.shape[0] / X.shape[0]
 
-    def predict(self, X_test: np.array):
+    def predict(self, X_test: np.ndarray):
         preds = []
         for x in X_test:
             posteriors = []

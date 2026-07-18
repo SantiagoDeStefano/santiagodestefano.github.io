@@ -4,7 +4,7 @@ class AveragePerceptron:
     def __init__(self):
         pass
 
-    def fit(self, X: np.array, y: np.array):
+    def fit(self, X: np.ndarray, y: np.ndarray):
         # W should be (n_features, 1)
         self.W = np.zeros(X.shape[1])
         self.b = 0.0
@@ -18,7 +18,7 @@ class AveragePerceptron:
                     self.b = self.b + lr * yi
                 print(f"Epoch: {epoch} Distance from true y: {abs(correct - yi)}")        
 
-    def predict(self, X_test: np.array):
+    def predict(self, X_test: np.ndarray):
         preds = []
         for x in X_test:
             y_pred = np.sign(self.W @ x + self.b)

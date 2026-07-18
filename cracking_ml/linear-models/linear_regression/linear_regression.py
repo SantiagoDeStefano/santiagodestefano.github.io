@@ -8,6 +8,8 @@ class Value:
         self.data = np.array(data, dtype=np.float64)
         self.grad = np.zeros_like(self.data)
         pass
+    def __rmul__(self, other):
+        return self * other
 
 def matmul_forward(X: Value, W: Value):
     """
@@ -48,7 +50,7 @@ def mse_forward(y_pred: Value, y_true: Value):
     loss = np.mean(diff ** 2)
     return loss, diff
 
-def mse_backward(y_pred: Value, diff: Value, n: int):
+def mse_backward(y_pred: Value, diff: np.ndarray, n: int):
     """
     dL/dy_pred = (2/n) * (y_pred - y_true)
     """

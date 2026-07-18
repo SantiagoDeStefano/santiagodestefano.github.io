@@ -12,6 +12,9 @@ class Value:
         self.grad = np.zeros_like(self.data)
         pass
 
+    def __rmul__(self, other):
+        return self * other
+
 
 def matmul_forward(X: Value, W: Value):
     """

@@ -4,7 +4,7 @@ class LinearDA:
     def __init__(self):
         pass
 
-    def fit(self, X: np.array, y: np.array):
+    def fit(self, X: np.ndarray, y: np.ndarray):
         self.mean = {}
         self.classes = np.unique(y)
         n_features = X.shape[1]
@@ -34,7 +34,7 @@ class LinearDA:
         preds = []
         for x in X_proj:
             dists = {c: np.linalg.norm(x - centroids[c]) for c in self.classes}
-            preds.append(min(dists, key=dists.get))
+            preds.append(min(dists, key=lambda k: dists[k]))
         return np.array(preds)
 
 np.random.seed(42)

@@ -4,7 +4,7 @@ class SVM:
     def __init__(self):
         pass
 
-    def fit(self, X: np.array, y: np.array):
+    def fit(self, X: np.ndarray, y: np.ndarray):
         # As X is (n_rows, n_features) so we want W to be (n_features,)
         self.W = np.zeros(X.shape[1])
         self.b = 0.0
@@ -27,7 +27,7 @@ class SVM:
             hinge_loss = np.sum(self.J) + lambda_l2 / 2 * np.sum(np.square(self.W))
             print("Epoch: ", epoch, "Loss: ", hinge_loss)
 
-    def predict(self, X_test: np.array):
+    def predict(self, X_test: np.ndarray):
         preds = []
         for x in X_test:
             y_pred = x @ self.W + self.b

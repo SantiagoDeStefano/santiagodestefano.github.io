@@ -1,14 +1,14 @@
 import numpy as np
 
 class KNN:
-    def __init__(self, k: np.int16):
+    def __init__(self, k: int):
         self.k = k
 
-    def fit(self, X: np.array, y: np.array):
+    def fit(self, X: np.ndarray, y: np.ndarray):
         self.X_train = X
         self.y_train = y
 
-    def predict(self, X_test: np.array):
+    def predict(self, X_test: np.ndarray):
         preds = []
         for x in X_test:
             diff = np.sqrt(np.sum(np.square(x - self.X_train), axis = 1))
