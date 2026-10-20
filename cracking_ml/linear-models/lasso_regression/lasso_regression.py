@@ -124,7 +124,7 @@ def train(X_tr, y_tr, alpha, epochs=300, lr=0.01):
 
         # Step 3: backprop through matmul (Z = X @ W)
         matmul_backward(X, W, Z.grad)
-        W.grad += dW_reg  # add ridge regularization gradient
+        W.grad += dW_reg  # add lasso regularization gradient
 
         # Gradient Descent
         W.data -= lr * W.grad
