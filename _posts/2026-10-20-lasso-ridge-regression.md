@@ -1,10 +1,10 @@
 ---
-title: "Lasso Regression from Scratch with Backpropagation"
+title: "Lasso & Ridge Regression from Scratch with Backpropagation"
 date: 2026-10-20
 categories: [ml-dl, "Cracking ML - Linear Models"]
 ---
 
-# Lasso Regression from Scratch with Backpropagation
+# Lasso & Ridge Regression from Scratch with Backpropagation
 
 ## What is Lasso Regression?
 

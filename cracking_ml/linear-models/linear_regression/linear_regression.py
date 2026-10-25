@@ -6,7 +6,7 @@ class Value:
     """
     def __init__(self, data):
         self.data = np.array(data, dtype=np.float64)
-        self.grad = np.zeros_like(self.data)
+        self.grad = np.zeros_like(data, dtype=np.float64)
         pass
     def __rmul__(self, other):
         return self * other
