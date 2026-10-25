@@ -100,6 +100,7 @@ After that, accumulate both the W and the b; then average it for better generali
 
 
 ## Maps to Real Frameworks
+
 | NumPy | sklearn |
 |---|---|
 | manual loop | `Perceptron` (no averaging) |
