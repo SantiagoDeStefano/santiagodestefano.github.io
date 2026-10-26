@@ -13,3 +13,47 @@ MathJax = {
   <p>{{ page.date | date: "%B %d, %Y" }}</p>
   {{ content }}
 </article>
+<div id="votes" data-key="{{ page.slug | slugify | truncate: 58, '' }}">
+  <button data-type="up">👍 <span>0</span></button>
+  <button data-type="down">👎 <span>0</span></button>
+</div>
+<script>
+(function () {
+  var API = 'https://abacus.jasoncameron.dev';
+  var NS = 'santiagodestefano-blog';
+  var box = document.getElementById('votes');
+  var key = box.dataset.key;
+  var store = 'vote-' + key;
+  var voted = null;
+  try { voted = localStorage.getItem(store); } catch (e) {}
+
+  box.querySelectorAll('button').forEach(function (btn) {
+    var type = btn.dataset.type;
+    var span = btn.querySelector('span');
+    var url = API + '/%s/' + NS + '/' + key + '-' + type;
+    if (voted) btn.disabled = true;
+    if (voted === type) btn.classList.add('chosen');
+
+    fetch(url.replace('%s', 'get'))
+      .then(function (r) { return r.ok ? r.json() : { value: 0 }; })
+      .then(function (d) { span.textContent = d.value; })
+      .catch(function () {});
+
+    btn.addEventListener('click', function () {
+      box.querySelectorAll('button').forEach(function (b) { b.disabled = true; });
+      btn.classList.add('chosen');
+      try { localStorage.setItem(store, type); } catch (e) {}
+      fetch(url.replace('%s', 'hit'))
+        .then(function (r) { return r.json(); })
+        .then(function (d) { span.textContent = d.value; })
+        .catch(function () {});
+    });
+  });
+})();
+</script>
+<style>
+#votes { margin: 2em 0; display: flex; gap: .5em; }
+#votes button { font-size: 1.1em; padding: .3em .8em; border: 1px solid #ccc; border-radius: 6px; background: none; cursor: pointer; }
+#votes button:disabled { cursor: default; opacity: .7; }
+#votes button.chosen { border-color: #2a7ae2; opacity: 1; }
+</style>
