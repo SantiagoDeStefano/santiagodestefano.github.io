@@ -10,6 +10,7 @@ categories: [ml-dl, "Cracking ML - Classification Models"]
 A linear binary classifier (labels +/- 1). It trains exactly like the plain perceptron (update W, b only on mistakes), but predicts with the average of W, b over every training step instead of the final ones. Making the boundary more stable and less sensitive to a few late updates, especially on noisy or non-separable data.
 
 ## The Math
+
 $$
 \hat{y} = \text{sign}(Wx + b)
 $$
