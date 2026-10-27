@@ -34,7 +34,6 @@ we log transform it.
 
 P(X|C) = P(X_1|C) * P(X_2|C) * .... * P(X_N|C) = np.prod(pdf),
 with X_1, X_2, X_N is features 1/2/N of X.
-
 log(P(X|C)) = log(P(X_1|C)) + log(P(X_2|C)) + ... + log(P(X_N|C));
 
 After all that, we get log(P(C|X)), and use argmax() to find the index
