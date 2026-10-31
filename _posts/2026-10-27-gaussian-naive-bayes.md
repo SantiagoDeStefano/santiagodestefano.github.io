@@ -1,6 +1,6 @@
 ---
 title: "Gaussian Naive Bayes from Scratch"
-date: 2026-10-25
+date: 2026-10-27
 categories: [ml-dl, "Cracking ML - Classification Models"]
 ---
 
