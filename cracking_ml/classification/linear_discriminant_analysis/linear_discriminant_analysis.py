@@ -25,7 +25,7 @@ class LinearDA:
 
         eigvals, eigvecs = np.linalg.eig(np.linalg.inv(S_W) @ S_B)
         idx = np.argsort(eigvals)[::-1]
-        W = eigvecs[:, idx[: len(self.classes) - 1]]
+        W = eigvecs[0:, idx[0: len(self.classes) - 1]]
         self.W = W
 
     def predict(self, X):
